@@ -1,0 +1,14 @@
+---
+:backends:
+        - yaml
+:yaml:
+        :datadir: "/etc/puppet/hieradata"
+
+:hierarchy:
+        - "%{::osfamily}/main"
+        
+
+
+
+
+

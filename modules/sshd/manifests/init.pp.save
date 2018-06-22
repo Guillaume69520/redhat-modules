@@ -1,0 +1,38 @@
+class ssh-server{
+case $::osfamily{
+'Debian':{
+
+$package="ssh"
+$servicename="ssh"
+	}
+
+'RedHat':{
+$package="sshd"
+$servicename="sshd"
+	}
+
+default:{ 
+fail("Not support ${::osfamily")
+	}
+}
+
+
+package{'$package':
+        name => $package,
+        ensure => present,
+}
+file{'/etc/ssh/sshd_config':
+        path => '/etc/ssh/sshd_config',
+        ensure => present,
+        source => '/',
+}
+service{'$servicename':
+        name => $servicename,
+        enable => true,
+        ensure => running,
+        hasrestart => true,
+
+}
+}
+
+

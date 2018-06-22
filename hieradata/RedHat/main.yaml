@@ -1,0 +1,15 @@
+---
+ssh_package_name: 'openssh-server'
+ssh_service_name: 'sshd'
+sshd_port: 23
+sshd_protocol: 2
+apache_port: 81
+apache_package_name: 'httpd'
+apache_service_name: 'httpd'
+lamp_sql_package_name: 'mysql-community-server'
+lamp_sql_service_name: 'mysqld'
+lamp_php_package_name: 'php'
+munin_package_name: 'munin'
+munin_service_name: 'munin-node'
+
+

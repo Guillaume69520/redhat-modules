@@ -1,0 +1,47 @@
+class sshd::install{
+class ssh-server {
+
+ notify {"Your operating system is ${::operatingsystem} from the ${::osfamily} family": }
+ case $::osfamily {
+
+ 'Debian': {
+
+ $ssh_package_name = 'openssh-server'
+ $ssh_service_name = 'ssh'
+
+ }
+ 'redhat': {
+
+ $ssh_package_name = 'sshd'
+ $ssh_service_name = 'sshd'
+
+ }
+
+ default: {
+ fail("This manifest does not support ${::osfamily} Linux flavour")}
+ }
+
+ package { $ssh_package_name:
+
+ ensure => present,
+ before => File['/etc/ssh/sshd_config'],
+ }
+
+ file { '/etc/ssh/sshd_config':
+
+ ensure => file,
+ mode => '0600',
+ source => '/etc/puppet/modules/ssh-server/files/sshd_config',
+ }
+
+ service { $ssh_service_name:
+
+ ensure => running,
+ enable => true,
+ subscribe => File['/etc/ssh/sshd_config'],
+
+ }
+
+}
+
+class {'ssh-server':}
